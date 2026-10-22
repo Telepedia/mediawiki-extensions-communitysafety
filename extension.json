@@ -1,0 +1,61 @@
+{
+	"name": "CommunitySafety",
+	"version": "0.0.0-alpha",
+	"author": [
+		"Telepedia Ltd."
+	],
+	"url": "https://github.com/telepedia/mediawiki-extensions-communitysafety",
+	"descriptionmsg": "communitysafety-desc",
+	"license-name": "Apache-2.0",
+	"type": "other",
+	"requires": {
+		"MediaWiki": ">= 1.43"
+	},
+	"MessagesDirs": {
+		"CommunitySafety": [
+			"i18n"
+		]
+	},
+	"AutoloadNamespaces": {
+		"Telepedia\\Extensions\\CommunitySafety\\": "includes/"
+	},
+	"HookHandlers": {
+		"lamplighter": {
+			"class": "Telepedia\\Extensions\\CommunitySafety\\Hooks\\LamplighterHooks",
+			"services": [
+				"JobQueueFactory"
+			]
+		}
+	},
+	"Hooks": {},
+	"ConfigRegistry": {
+		"CommunitySafety": "MediaWiki\\Config\\GlobalVarConfig::newInstance"
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "CommunitySafety"
+	},
+	"JobClasses": {
+		"SubmitEditJob": {
+			"class": "Telepedia\\Extensions\\CommunitySafety\\Jobs\\SubmitEditJob",
+			"services": [
+				"HttpRequestFactory",
+				"ConfigFactory",
+				"RevisionStore",
+				"TitleFactory"
+			],
+			"needsPage": false
+		}
+	},
+	"config": {
+		"CommunitySafetyEndpoint": {
+			"description": "String. Endpoint for the Lamplighter ingestion service.",
+			"value": null
+		},
+		"CommunitySafetyIngestKey": {
+			"description": "String. API key for the Lamplighter service",
+			"value": null
+		}
+	},
+	"manifest_version": 2
+}
