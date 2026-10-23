@@ -17,7 +17,11 @@ class LamplighterHooks implements PageSaveCompleteHook {
 	 * @inheritDoc
 	 */
 	public function onPageSaveComplete( $wikiPage, $user, $summary, $flags, $revisionRecord, $editResult ): void {
-		$this->jobQueueGroup->lazyPush(
+		if ( $editResult->isNullEdit() ) {
+			return;
+		}
+		
+ 		$this->jobQueueGroup->lazyPush(
 			new JobSpecification(
 				SubmitEditJob::JOB_NAME,
 				[ 'id' => $revisionRecord->getId() ]

@@ -23,11 +23,13 @@
 		"lamplighter": {
 			"class": "Telepedia\\Extensions\\CommunitySafety\\Hooks\\LamplighterHooks",
 			"services": [
-				"JobQueueFactory"
+				"JobQueueGroup"
 			]
 		}
 	},
-	"Hooks": {},
+	"Hooks": {
+		"PageSaveComplete": "lamplighter"
+	},
 	"ConfigRegistry": {
 		"CommunitySafety": "MediaWiki\\Config\\GlobalVarConfig::newInstance"
 	},
